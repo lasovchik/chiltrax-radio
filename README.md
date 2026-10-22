@@ -1,5 +1,9 @@
 # Chilltrax Radio
 
+![Android 8.0+](https://img.shields.io/badge/Android-8.0%2B-3DDC84?logo=android&logoColor=white)
+![Kotlin 2.4](https://img.shields.io/badge/Kotlin-2.4-7F52FF?logo=kotlin&logoColor=white)
+![License MIT](https://img.shields.io/badge/license-MIT-blue)
+
 Нативный Android-клиент для интернет-радио Chilltrax. Минималистичный интерфейс,
 фоновое воспроизведение и собственный список станций — без рекламы, аналитики и
 лишних настроек.
@@ -22,9 +26,7 @@
 
 ## Скачать
 
-Готовый APK доступен на странице релизов:
-
-**[Скачать последнюю версию](http://192.168.30.2:30008/lasovchik/chiltrax-radio/releases/latest)**
+Готовый APK доступен в разделе **Releases** этого репозитория.
 
 Требования: Android 8.0 (API 26) или новее.
 
@@ -129,3 +131,15 @@ app/src/main/java/com/chilltrax/radio/
 - Приложение не собирает аналитику и не передаёт данные третьим лицам. Сетевые
   запросы используются только для загрузки потока и поиска станций в Radio
   Browser.
+
+## История изменений
+
+Список версий и изменений — в [CHANGELOG.md](CHANGELOG.md).
+
+## Участие
+
+Правила и требования к pull request — в [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Лицензия
+
+Проект распространяется по лицензии MIT. Подробности — в [LICENSE](LICENSE).

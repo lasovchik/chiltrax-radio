@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chilltrax</string>
+    <string name="app_subtitle">ONLINE RADIO</string>
+
+    <string name="status_online">ONLINE</string>
+    <string name="status_offline">OFFLINE</string>
+    <string name="offline_message">Нет подключения к интернету. Проверьте сеть — потоковое вещание недоступно.</string>
+
+    <string name="my_stations">Мои станции</string>
+    <string name="stations_count">%1$d</string>
+
+    <string name="station_name">Название</string>
+    <string name="station_name_hint">Например, Chilltrax</string>
+    <string name="stream_url">URL потока</string>
+    <string name="stream_url_hint">https://example.com/stream.mp3</string>
+    <string name="genre">Жанр</string>
+    <string name="genre_hint">Chillout, Ambient, Lo-Fi…</string>
+
+    <string name="save">Сохранить</string>
+    <string name="saving">Сохранение…</string>
+    <string name="check_stream">Проверить поток</string>
+    <string name="checking">Проверка…</string>
+    <string name="lookup_online">Заполнить из каталога</string>
+    <string name="stream_hint">URL должен указывать на прямой аудиопоток (MP3 или AAC), например https://streamssl.chilltrax.com/stream.mp3</string>
+    <string name="editor_title_new">Добавление станции</string>
+    <string name="editor_title_edit">Настройки станции</string>
+
+    <string name="error_name_required">Укажите название</string>
+    <string name="error_url_invalid">Введите корректный http(s) URL</string>
+    <string name="stream_available">Поток доступен</string>
+    <string name="stream_unavailable">Не удалось проверить поток</string>
+    <string name="catalog_found">Данные заполнены из каталога</string>
+    <string name="catalog_not_found">Станция не найдена в каталоге</string>
+    <string name="station_deleted">Станция удалена</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_station_title">Удалить станцию?</string>
+    <string name="delete_station_message">Станция «%1$s» будет удалена из вашего списка.</string>
+    <string name="cancel">Отмена</string>
+
+    <string name="play">Воспроизвести</string>
+    <string name="now_playing">Сейчас в эфире</string>
+    <string name="buffering">Буферизация…</string>
+    <string name="paused">Пауза</string>
+    <string name="ready">Готово к воспроизведению</string>
+    <string name="live">LIVE</string>
+    <string name="stream_quality">MP3 • 128 kbps</string>
+    <string name="default_genre">Chillout</string>
+
+    <string name="no_stations">Пока нет станций</string>
+    <string name="no_stations_hint">Добавьте свою первую радиостанцию</string>
+    <string name="add_first_station">Добавить станцию</string>
+    <string name="station_not_found">Станция не найдена</string>
+    <string name="delete_failed">Не удалось удалить станцию</string>
+    <string name="connection_error">Нет подключения к интернету</string>
+
+    <string name="notification_channel_name">Воспроизведение</string>
+
+    <string name="cd_radio">Радио</string>
+    <string name="cd_play">Воспроизвести</string>
+    <string name="cd_pause">Пауза</string>
+    <string name="cd_edit">Редактировать станцию</string>
+    <string name="cd_delete">Удалить станцию</string>
+    <string name="cd_back">Назад</string>
+    <string name="cd_add">Добавить станцию</string>
+    <string name="cd_volume">Громкость</string>
+</resources>

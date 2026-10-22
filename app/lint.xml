@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Media3 помечает часть стабильного на практике API аннотацией UnstableApi.
+         Осознанно включаем её для модуля, чтобы не протаскивать аннотацию через UI-слой. -->
+    <issue id="UnsafeOptInUsageError">
+        <option name="opt-in" value="androidx.media3.common.util.UnstableApi" />
+    </issue>
+</lint>

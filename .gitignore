@@ -35,6 +35,7 @@ release/
 # Signing
 *.jks
 *.keystore
+keystore.properties
 signing.properties
 
 # Logs

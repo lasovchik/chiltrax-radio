@@ -9,6 +9,15 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+val releaseKeystorePath = providers.environmentVariable("CHILLTRAX_KEYSTORE").orNull
+val releaseKeystorePassword = providers.environmentVariable("CHILLTRAX_KEYSTORE_PASSWORD").orNull
+val releaseKeyAlias = providers.environmentVariable("CHILLTRAX_KEY_ALIAS").orNull
+val releaseKeyPassword = providers.environmentVariable("CHILLTRAX_KEY_PASSWORD").orNull
+val hasReleaseSigning = releaseKeystorePath != null &&
+    releaseKeystorePassword != null &&
+    releaseKeyAlias != null &&
+    releaseKeyPassword != null
+
 android {
     namespace = "com.chilltrax.radio"
     compileSdk = 37
@@ -17,11 +26,22 @@ android {
         applicationId = "com.chilltrax.radio"
         minSdk = 26
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
 
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = file(releaseKeystorePath!!)
+                storePassword = releaseKeystorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
         }
     }
 
@@ -37,6 +57,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 

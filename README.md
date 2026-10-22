@@ -124,6 +124,26 @@ sdk.dir=/path/to/android-sdk
 4. `./gradlew :app:assembleDebug` или Run в Android Studio.
 5. Для release задать signingConfig в `app/build.gradle.kts`.
 
+## Подписанный release
+
+Ключ и пароли не хранятся в репозитории. Подпись включается переменными окружения:
+
+```bash
+export CHILLTRAX_KEYSTORE=/root/chilltrax-signing/chilltrax-release.jks
+export CHILLTRAX_KEY_ALIAS=chilltrax
+export CHILLTRAX_KEYSTORE_PASSWORD='<store-password>'
+export CHILLTRAX_KEY_PASSWORD='<key-password>'
+
+./gradlew :app:assembleRelease --no-daemon
+```
+
+Готовый файл: `app/build/outputs/apk/release/app-release.apk`.
+
+Скрипт сборки на сервере: `/root/chilltrax-signing/build-signed.sh`.
+Keystore и `keystore.properties` лежат в `/root/chilltrax-signing/` с правами
+`600/700`. Их нужно сохранить в надёжном месте: потеря ключа не позволит
+выпускать обновления с той же подписью.
+
 ## Проверки
 
 - `StationInputValidatorTest`: 5 тестов, все проходят.

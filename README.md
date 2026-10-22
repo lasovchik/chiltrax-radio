@@ -1,207 +1,131 @@
 # Chilltrax Radio
 
-Нативный Android-клиент интернет-радио Chilltrax: Compose UI, Media3 ExoPlayer,
-фоновое воспроизведение, медиа-уведомление, управление станциями в Room.
+Нативный Android-клиент для интернет-радио Chilltrax. Минималистичный интерфейс,
+фоновое воспроизведение и собственный список станций — без рекламы, аналитики и
+лишних настроек.
+
+Приложение создано для прослушивания Chilltrax, но поддерживает любые прямые
+аудиопотоки: можно добавить собственные станции, изменить URL или удалить всё
+лишнее.
 
 ## Возможности
 
-- Воспроизведение потока `https://streamssl.chilltrax.com/stream.mp3`.
-- Станция `Chilltrax` (жанр `Chillout`) создаётся при первом запуске.
-- Плейлист станций: добавление, редактирование, удаление, выбор активной.
-- Фоновое воспроизведение через `MediaSessionService`, уведомление с play/pause.
-- Регулировка громкости, статус "буферизация", обработка ошибок и отсутствия сети.
-- Поиск названия/жанра станции по URL через Radio Browser API (не блокирует сохранение).
-- Валидация URL и полей формы.
-- Тёмная/светлая тема, Material 3, анимированная виниловая пластинка и эквалайзер.
+- Воспроизведение потока Chilltrax в формате MP3.
+- Станция Chilltrax с жанром Chillout создаётся при первом запуске.
+- Добавление, редактирование и удаление радиостанций.
+- Фоновое воспроизведение и управление из медиа-уведомления.
+- Регулировка громкости, индикация буферизации и обработка ошибок.
+- Проверка доступности потока и заполнение данных из каталога Radio Browser.
+- Валидация названия и URL перед сохранением.
+- Светлая и тёмная темы, Material 3, анимированная виниловая пластинка.
+- Работа без сети с понятным сообщением об ошибке.
+
+## Скачать
+
+Готовый APK доступен на странице релизов:
+
+**[Скачать последнюю версию](../../releases/latest)**
+
+Требования: Android 8.0 (API 26) или новее.
+
+APK подписан и готов к установке. SHA-256 и сведения о подписи указаны в описании
+релиза.
 
 ## Технологии
 
 | Компонент | Версия |
 |---|---|
-| Kotlin / KGP | 2.4.10 |
-| Android Gradle Plugin | 9.4.1 |
-| Gradle | 9.8.2 |
-| Hilt | 2.60.1 |
-| KSP | 2.3.12 |
-| compileSdk / targetSdk / minSdk | 37 / 37 / 26 |
-| Jetpack Compose BOM | 2026.09.00 |
-| Media3 | 1.11.1 |
-| Room | 2.8.5 |
-| Retrofit / OkHttp | 2.12.0 / 4.12.0 |
+| Язык | Kotlin 2.4 |
+| UI | Jetpack Compose, Material 3 |
+| Архитектура | MVVM, Clean Architecture |
+| Воспроизведение | Media3 ExoPlayer, MediaSessionService |
+| Хранение | Room |
+| DI | Hilt |
+| Сеть | Retrofit, OkHttp, kotlinx.serialization |
+| Минимальная версия | Android 8.0 (API 26) |
+| Целевая версия | Android 17 (API 37) |
 
-`compileSdk 37` и AGP 9.4.1 выбраны потому, что используемые версии AndroidX и
-Hilt 2.60.1 требуют AGP 9.1+. В `gradle.properties` отключены встроенный Kotlin
-AGP и новый DSL (`android.builtInKotlin=false`, `android.newDsl=false`), так как
-Hilt 2.60.1 ещё не совместим со встроенным Kotlin AGP 9.4.1 в связке с KGP 2.4.10.
+Проект использует корутины и Flow, а синхронная работа с БД и сетью выполняется
+вне главного потока.
 
-## Структура
+## Сборка
 
-```text
-app/src/main/java/com/chilltrax/radio/
-├── ChilltraxApp.kt                  # @HiltAndroidApp
-├── MainActivity.kt                  # edge-to-edge, запрос POST_NOTIFICATIONS
-├── data/
-│   ├── local/                       # Room: entity, DAO, database, default station
-│   ├── remote/                      # Retrofit: StreamApi, RadioBrowserApi, DTO
-│   └── repository/                  # StationRepositoryImpl, StreamRepositoryImpl, NetworkMonitor
-├── di/                              # Hilt: Database, Network, Repository modules
-├── domain/
-│   ├── model/                       # Station, StationSuggestion
-│   ├── repository/                  # интерфейсы репозиториев
-│   ├── usecase/                     # StationUseCases, NetworkUseCases
-│   └── validation/                  # StationInputValidator
-├── playback/
-│   ├── PlaybackService.kt           # MediaSessionService + ExoPlayer
-│   ├── RadioPlayer.kt               # singleton MediaController
-│   └── ArtworkFactory.kt            # обложка по умолчанию
-└── presentation/
-    ├── common/                      # UiMessage
-    ├── editor/                      # StationEditorScreen + ViewModel
-    ├── home/                        # PlayerScreen, RadioViewModel, VinylRecord, AudioVisualizer
-    ├── navigation/                  # ChilltraxNavHost
-    └── theme/                       # Color, Theme, Type
-```
+Понадобятся:
 
-Схема Room экспортируется в `app/schemas/`.
+- Android Studio с поддержкой Android Gradle Plugin 9.4;
+- JDK 17;
+- Android SDK Platform 37 и Build Tools 37.0.0.
 
-## Сборка на удалённом сервере
-
-Все команды выполняются через `bifrost_exec` (не через `ssh`).
-
-```bash
-# один раз за сессию
-bifrost_connect
-```
-
-На сервере выполняются команды:
-
-```bash
-cd /root/chilltrax-radio
-printf 'sdk.dir=/opt/android-sdk\n' > local.properties
-./gradlew :app:assembleDebug --no-daemon
-./gradlew :app:testDebugUnitTest --no-daemon
-./gradlew :app:lintDebug --no-daemon
-./gradlew :app:assembleRelease --no-daemon
-```
-
-Каждая команда запускается через `bifrost_exec`, например:
-
-```text
-bifrost_exec({ command: "cd /root/chilltrax-radio && ./gradlew :app:assembleDebug --no-daemon" })
-```
-
-Артефакты:
-
-- debug APK: `/root/chilltrax-radio/app/build/outputs/apk/debug/app-debug.apk`
-- unsigned release APK: `/root/chilltrax-radio/app/build/outputs/apk/release/app-release-unsigned.apk`
-
-Скачать APK на локальную машину:
-
-```text
-bifrost_download(remotePath="/root/chilltrax-radio/app/build/outputs/apk/debug/app-debug.apk",
-                 localPath="/home/opencode/workspace/app-debug.apk")
-```
-
-Установка на подключённый по ADB телефон:
-
-```bash
-adb install -r app-debug.apk
-```
-
-Сервер собирает проект без эмулятора: в нём нет system images и `/dev/kvm`,
-поэтому запуск на устройстве/эмуляторе нужно проверить отдельно.
-
-## Локальная сборка
-
-1. Открыть папку проекта в Android Studio, поддерживающей AGP 9.4.1.
-2. Указать JDK 17 и Android SDK с platform 37 и build-tools 37.0.0.
-3. Создать `local.properties`:
+Клонируйте репозиторий и откройте папку проекта в Android Studio. При необходимости
+укажите путь к SDK в `local.properties`:
 
 ```properties
 sdk.dir=/path/to/android-sdk
 ```
 
-4. `./gradlew :app:assembleDebug` или Run в Android Studio.
-5. Для release задать signingConfig в `app/build.gradle.kts`.
-
-## Подписанный release
-
-Ключ и пароли не хранятся в репозитории. Подпись включается переменными окружения:
+Сборка из терминала:
 
 ```bash
-export CHILLTRAX_KEYSTORE=/root/chilltrax-signing/chilltrax-release.jks
+./gradlew :app:assembleDebug
+```
+
+Готовый APK появится в `app/build/outputs/apk/debug/app-debug.apk`.
+
+Установка на подключённое устройство:
+
+```bash
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+## Подписанный релиз
+
+Параметры подписи передаются через переменные окружения и не хранятся в
+репозитории:
+
+```bash
+export CHILLTRAX_KEYSTORE=/path/to/release.jks
 export CHILLTRAX_KEY_ALIAS=chilltrax
 export CHILLTRAX_KEYSTORE_PASSWORD='<store-password>'
 export CHILLTRAX_KEY_PASSWORD='<key-password>'
 
-./gradlew :app:assembleRelease --no-daemon
+./gradlew :app:assembleRelease
 ```
 
-Готовый файл: `app/build/outputs/apk/release/app-release.apk`.
+Подписанный APK: `app/build/outputs/apk/release/app-release.apk`.
 
-Скрипт сборки на сервере: `/root/chilltrax-signing/build-signed.sh`.
-Keystore и `keystore.properties` лежат в `/root/chilltrax-signing/` с правами
-`600/700`. Их нужно сохранить в надёжном месте: потеря ключа не позволит
-выпускать обновления с той же подписью.
+Храните keystore и пароли в надёжном месте. Потеря ключа сделает невозможным
+выпуск обновлений с той же подписью.
+
+## Структура проекта
+
+```text
+app/src/main/java/com/chilltrax/radio/
+├── data/            # Room, Retrofit, реализации репозиториев
+├── di/              # модули Hilt
+├── domain/          # модели, use cases, валидация
+├── playback/        # ExoPlayer, MediaSessionService, MediaController
+└── presentation/    # Compose-экраны, ViewModel, навигация, тема
+```
+
+Схема базы данных Room экспортируется в `app/schemas/`.
 
 ## Проверки
 
-- `StationInputValidatorTest`: 5 тестов, все проходят.
-- `lintDebug`: 0 ошибок. Остались только предупреждения о доступных более новых
-  версиях Retrofit/OkHttp/Coroutines и о `mipmap-anydpi-v26` при `minSdk 26`
-  (папка нужна AAPT для adaptive icon).
-- Debug и release (R8) сборки успешно собираются.
-
-## Git и Gitea
-
-Gitea-репозиторий должен существовать до `git push`. Создать его можно в веб-UI,
-через `tea` или API. Доступ к Git — по SSH.
-
 ```bash
-cd /home/opencode/workspace/chilltrax-radio
-
-git init
-git add .
-git commit -m "feat: Chilltrax Radio Android client"
-git branch -M main
-
-# заменить gitea.example.com и USER на реальные значения
-git remote add origin git@gitea.example.com:USER/chilltrax-radio.git
-git push -u origin main
+./gradlew :app:testDebugUnitTest
+./gradlew :app:lintDebug
 ```
 
-Проверка SSH-доступа:
+Юнит-тесты покрывают валидацию пользовательского ввода. Lint настроен на сборку
+без ошибок; предупреждения о доступных обновлениях зависимостей не блокируют
+релиз.
 
-```bash
-ssh -T git@gitea.example.com
-```
+## Примечания
 
-Создание репозитория через `tea` (если установлен и настроен):
-
-```bash
-tea repos create --name chilltrax-radio --private \
-  --description "Native Android client for Chilltrax radio"
-```
-
-Создание через API Gitea:
-
-```bash
-export GITEA_URL="https://gitea.example.com"
-export GITEA_TOKEN="<personal-access-token>"
-
-curl -X POST \
-  -H "Authorization: token $GITEA_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"name":"chilltrax-radio","private":true,"description":"Native Android client for Chilltrax radio"}' \
-  "$GITEA_URL/api/v1/user/repos"
-```
-
-Если репозиторий уже создан, команду создания пропустить.
-
-## Особенности
-
-- `usesCleartextTraffic="true"` включён, чтобы можно было добавлять HTTP-потоки:
-  многие интернет-радиостанции до сих пор отдают `http://`.
-- На Android 13+ уведомление воспроизведения появляется после разрешения
-  `POST_NOTIFICATIONS`; воспроизведение работает и без него.
-- Room-схема версии 1 лежит в `app/schemas/`.
+- Поддерживаются как HTTPS-, так и HTTP-потоки: часть радиостанций до сих пор
+  использует незашифрованный HTTP.
+- На Android 13+ для показа уведомления требуется разрешение на уведомления.
+  Воспроизведение работает и без него.
+- Приложение не собирает аналитику и не передаёт данные третьим лицам. Сетевые
+  запросы используются только для загрузки потока и поиска станций в Radio
+  Browser.

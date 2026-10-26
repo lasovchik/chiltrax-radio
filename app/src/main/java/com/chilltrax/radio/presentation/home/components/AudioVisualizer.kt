@@ -15,8 +15,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import com.chilltrax.radio.presentation.theme.NeonBlue
-import com.chilltrax.radio.presentation.theme.NeonPurple
-import com.chilltrax.radio.presentation.theme.NeonViolet
+import com.chilltrax.radio.presentation.theme.NeonCyan
+import com.chilltrax.radio.presentation.theme.NeonSky
 
 private const val BAR_COUNT = 24
 
@@ -59,7 +59,7 @@ fun AudioVisualizer(
 
             drawRoundRect(
                 brush = Brush.verticalGradient(
-                    colors = listOf(NeonViolet, NeonPurple, NeonBlue),
+                    colors = listOf(NeonSky, NeonCyan, NeonBlue),
                     startY = maxHeight - barHeight,
                     endY = maxHeight,
                 ),

@@ -61,10 +61,10 @@ import com.chilltrax.radio.R
 import com.chilltrax.radio.presentation.theme.ChillBackground
 import com.chilltrax.radio.presentation.theme.ChillBackgroundAlt
 import com.chilltrax.radio.presentation.theme.ErrorRed
+import com.chilltrax.radio.presentation.theme.NeonAzure
 import com.chilltrax.radio.presentation.theme.NeonBlue
 import com.chilltrax.radio.presentation.theme.NeonGradient
-import com.chilltrax.radio.presentation.theme.NeonPurple
-import com.chilltrax.radio.presentation.theme.NeonViolet
+import com.chilltrax.radio.presentation.theme.NeonSky
 import com.chilltrax.radio.presentation.theme.SurfaceDark
 import com.chilltrax.radio.presentation.theme.SurfaceElevated
 import com.chilltrax.radio.presentation.theme.TextPrimary
@@ -142,7 +142,7 @@ fun StationEditorScreen(
                         .padding(innerPadding),
                     contentAlignment = Alignment.Center,
                 ) {
-                    CircularProgressIndicator(color = NeonViolet)
+                    CircularProgressIndicator(color = NeonSky)
                 }
             } else {
                 Column(
@@ -156,7 +156,7 @@ fun StationEditorScreen(
                     Text(
                         text = stringResource(R.string.app_subtitle),
                         style = MaterialTheme.typography.labelSmall,
-                        color = NeonViolet,
+                        color = NeonSky,
                     )
 
                     StationTextField(
@@ -188,9 +188,9 @@ fun StationEditorScreen(
                             .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(16.dp),
-                        border = BorderStroke(1.dp, NeonPurple.copy(alpha = 0.4f)),
+                        border = BorderStroke(1.dp, NeonAzure.copy(alpha = 0.4f)),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = NeonViolet,
+                            contentColor = NeonSky,
                             disabledContentColor = TextSecondary,
                         ),
                     ) {
@@ -198,7 +198,7 @@ fun StationEditorScreen(
                             CircularProgressIndicator(
                                 modifier = Modifier.size(18.dp),
                                 strokeWidth = 2.dp,
-                                color = NeonViolet,
+                                color = NeonSky,
                             )
                         } else {
                             Icon(
@@ -225,7 +225,7 @@ fun StationEditorScreen(
                         shape = RoundedCornerShape(16.dp),
                         border = BorderStroke(1.dp, NeonBlue.copy(alpha = 0.4f)),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = Color(0xFF93C5FD),
+                            contentColor = NeonSky,
                             disabledContentColor = TextSecondary,
                         ),
                     ) {
@@ -308,11 +308,11 @@ private fun StationTextField(
             focusedContainerColor = SurfaceDark.copy(alpha = 0.75f),
             unfocusedContainerColor = SurfaceDark.copy(alpha = 0.55f),
             errorContainerColor = SurfaceDark.copy(alpha = 0.75f),
-            cursorColor = NeonViolet,
-            focusedBorderColor = NeonViolet,
+            cursorColor = NeonSky,
+            focusedBorderColor = NeonSky,
             unfocusedBorderColor = Color.White.copy(alpha = 0.12f),
             errorBorderColor = ErrorRed,
-            focusedLabelColor = NeonViolet,
+            focusedLabelColor = NeonSky,
             unfocusedLabelColor = TextSecondary,
             errorLabelColor = ErrorRed,
             focusedSupportingTextColor = ErrorRed,
@@ -337,7 +337,7 @@ private fun StreamHint() {
             modifier = Modifier
                 .padding(top = 5.dp)
                 .size(6.dp)
-                .background(NeonViolet, CircleShape),
+                .background(NeonSky, CircleShape),
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
@@ -357,7 +357,7 @@ private fun SaveButton(
         modifier = Modifier
             .fillMaxWidth()
             .height(58.dp)
-            .shadow(18.dp, RoundedCornerShape(18.dp), spotColor = NeonPurple)
+            .shadow(18.dp, RoundedCornerShape(18.dp), spotColor = NeonAzure)
             .clip(RoundedCornerShape(18.dp))
             .background(Brush.linearGradient(NeonGradient))
             .alpha(if (isSaving) 0.7f else 1f)

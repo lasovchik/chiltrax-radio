@@ -75,11 +75,11 @@ import com.chilltrax.radio.presentation.theme.CardGradient
 import com.chilltrax.radio.presentation.theme.ChillBackground
 import com.chilltrax.radio.presentation.theme.ChillBackgroundAlt
 import com.chilltrax.radio.presentation.theme.ErrorRed
+import com.chilltrax.radio.presentation.theme.NeonAzure
 import com.chilltrax.radio.presentation.theme.NeonBlue
 import com.chilltrax.radio.presentation.theme.NeonCyan
 import com.chilltrax.radio.presentation.theme.NeonGradient
-import com.chilltrax.radio.presentation.theme.NeonPurple
-import com.chilltrax.radio.presentation.theme.NeonViolet
+import com.chilltrax.radio.presentation.theme.NeonSky
 import com.chilltrax.radio.presentation.theme.SuccessGreen
 import com.chilltrax.radio.presentation.theme.SurfaceDark
 import com.chilltrax.radio.presentation.theme.SurfaceElevated
@@ -118,7 +118,7 @@ fun PlayerScreen(
                 .offset(x = (-120).dp, y = (-90).dp)
                 .background(
                     Brush.radialGradient(
-                        colors = listOf(NeonPurple.copy(alpha = 0.22f), Color.Transparent),
+                        colors = listOf(NeonCyan.copy(alpha = 0.20f), Color.Transparent),
                     ),
                     CircleShape,
                 ),
@@ -129,7 +129,7 @@ fun PlayerScreen(
                 .offset(x = 210.dp, y = 420.dp)
                 .background(
                     Brush.radialGradient(
-                        colors = listOf(NeonBlue.copy(alpha = 0.16f), Color.Transparent),
+                        colors = listOf(NeonBlue.copy(alpha = 0.18f), Color.Transparent),
                     ),
                     CircleShape,
                 ),
@@ -142,7 +142,7 @@ fun PlayerScreen(
                 Box(
                     modifier = Modifier
                         .size(62.dp)
-                        .shadow(20.dp, CircleShape, spotColor = NeonPurple)
+                        .shadow(20.dp, CircleShape, spotColor = NeonAzure)
                         .clip(CircleShape)
                         .background(Brush.linearGradient(NeonGradient))
                         .clickable(onClick = onAddStation),
@@ -207,7 +207,7 @@ fun PlayerScreen(
                                 .padding(top = 24.dp),
                             contentAlignment = Alignment.Center,
                         ) {
-                            CircularProgressIndicator(color = NeonViolet)
+                            CircularProgressIndicator(color = NeonSky)
                         }
                     }
                 } else if (uiState.stations.isEmpty()) {
@@ -294,7 +294,7 @@ private fun AppHeader(isOnline: Boolean) {
             Text(
                 text = stringResource(R.string.app_name).uppercase(),
                 style = MaterialTheme.typography.titleLarge.copy(
-                    brush = Brush.linearGradient(listOf(TextPrimary, NeonViolet)),
+                    brush = Brush.linearGradient(listOf(TextPrimary, NeonSky)),
                     letterSpacing = MaterialTheme.typography.titleLarge.letterSpacing,
                 ),
                 maxLines = 1,
@@ -394,7 +394,7 @@ private fun PlayerCard(
             .shadow(
                 elevation = 28.dp,
                 shape = shape,
-                ambientColor = NeonPurple.copy(alpha = 0.30f),
+                ambientColor = NeonAzure.copy(alpha = 0.30f),
                 spotColor = NeonBlue.copy(alpha = 0.30f),
             )
             .clip(shape)
@@ -403,9 +403,9 @@ private fun PlayerCard(
                 width = 1.2.dp,
                 brush = Brush.linearGradient(
                     listOf(
-                        NeonPurple.copy(alpha = 0.85f),
-                        NeonBlue.copy(alpha = 0.55f),
-                        NeonViolet.copy(alpha = 0.35f),
+                        NeonSky.copy(alpha = 0.85f),
+                        NeonCyan.copy(alpha = 0.55f),
+                        NeonAzure.copy(alpha = 0.35f),
                     ),
                 ),
                 shape = shape,
@@ -420,7 +420,7 @@ private fun PlayerCard(
                 isPlaying = isPlaying,
                 modifier = Modifier
                     .fillMaxWidth(0.62f)
-                    .shadow(24.dp, CircleShape, spotColor = NeonPurple),
+                    .shadow(24.dp, CircleShape, spotColor = NeonAzure),
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -465,7 +465,7 @@ private fun PlayerCard(
             Text(
                 text = "$genreText  •  $qualityText",
                 style = MaterialTheme.typography.bodyMedium,
-                color = NeonViolet.copy(alpha = 0.85f),
+                color = NeonSky.copy(alpha = 0.85f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -514,7 +514,7 @@ private fun PlayPauseButton(
         if (isBuffering) {
             CircularProgressIndicator(
                 modifier = Modifier.size(94.dp),
-                color = NeonViolet.copy(alpha = 0.55f),
+                color = NeonSky.copy(alpha = 0.55f),
                 strokeWidth = 2.dp,
                 trackColor = Color.White.copy(alpha = 0.06f),
             )
@@ -523,7 +523,7 @@ private fun PlayPauseButton(
         Box(
             modifier = Modifier
                 .size(84.dp)
-                .shadow(22.dp, CircleShape, spotColor = NeonPurple)
+                .shadow(22.dp, CircleShape, spotColor = NeonAzure)
                 .clip(CircleShape)
                 .background(
                     Brush.linearGradient(NeonGradient),
@@ -580,8 +580,8 @@ private fun VolumeRow(
                 .weight(1f)
                 .padding(horizontal = 8.dp),
             colors = SliderDefaults.colors(
-                thumbColor = NeonViolet,
-                activeTrackColor = NeonPurple,
+                thumbColor = NeonSky,
+                activeTrackColor = NeonAzure,
                 inactiveTrackColor = Color.White.copy(alpha = 0.12f),
             ),
         )
@@ -612,13 +612,13 @@ private fun StationsHeader(count: Int) {
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
-                .background(NeonPurple.copy(alpha = 0.18f))
+                .background(NeonAzure.copy(alpha = 0.18f))
                 .padding(horizontal = 9.dp, vertical = 2.dp),
         ) {
             Text(
                 text = stringResource(R.string.stations_count, count),
                 style = MaterialTheme.typography.labelSmall,
-                color = NeonViolet,
+                color = NeonSky,
             )
         }
     }
@@ -637,7 +637,7 @@ private fun StationCard(
     val shape = RoundedCornerShape(20.dp)
     val accentBorder = Brush.linearGradient(
         listOf(
-            NeonPurple.copy(alpha = 0.85f),
+            NeonCyan.copy(alpha = 0.85f),
             NeonBlue.copy(alpha = 0.55f),
         ),
     )
@@ -651,7 +651,7 @@ private fun StationCard(
                 brush = if (isSelected) {
                     Brush.linearGradient(
                         listOf(
-                            NeonPurple.copy(alpha = 0.18f),
+                            NeonCyan.copy(alpha = 0.16f),
                             NeonBlue.copy(alpha = 0.07f),
                         ),
                     )
@@ -714,7 +714,7 @@ private fun StationCard(
             Icon(
                 imageVector = Icons.Rounded.GraphicEq,
                 contentDescription = if (isPlaying) stringResource(R.string.play) else null,
-                tint = NeonViolet,
+                tint = NeonSky,
                 modifier = Modifier
                     .size(22.dp)
                     .padding(end = 2.dp),
@@ -755,7 +755,7 @@ private fun EmptyStations(onAddStation: () -> Unit) {
         Icon(
             imageVector = Icons.Rounded.Radio,
             contentDescription = null,
-            tint = NeonViolet.copy(alpha = 0.7f),
+            tint = NeonSky.copy(alpha = 0.7f),
             modifier = Modifier.size(44.dp),
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -774,7 +774,7 @@ private fun EmptyStations(onAddStation: () -> Unit) {
         TextButton(onClick = onAddStation) {
             Text(
                 text = stringResource(R.string.add_first_station),
-                color = NeonViolet,
+                color = NeonSky,
                 fontWeight = FontWeight.SemiBold,
             )
         }

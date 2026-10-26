@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
 import com.chilltrax.radio.presentation.theme.NeonBlue
-import com.chilltrax.radio.presentation.theme.NeonPurple
-import com.chilltrax.radio.presentation.theme.NeonViolet
+import com.chilltrax.radio.presentation.theme.NeonCyan
+import com.chilltrax.radio.presentation.theme.NeonSky
 
 @Composable
 fun VinylRecord(
@@ -57,7 +57,7 @@ fun VinylRecord(
 
             drawCircle(
                 brush = Brush.radialGradient(
-                    colors = listOf(Color(0xFF1B1B2E), Color(0xFF090912)),
+                    colors = listOf(Color(0xFF0B1B2E), Color(0xFF040B14)),
                     center = center,
                     radius = radius,
                 ),
@@ -74,7 +74,7 @@ fun VinylRecord(
 
             drawCircle(
                 brush = Brush.sweepGradient(
-                    colors = listOf(NeonViolet, NeonPurple, NeonBlue, NeonViolet),
+                    colors = listOf(NeonSky, NeonCyan, NeonBlue, NeonSky),
                     center = center,
                 ),
                 radius = radius * 0.33f,
@@ -86,7 +86,7 @@ fun VinylRecord(
             )
 
             drawCircle(
-                color = NeonViolet.copy(alpha = 0.75f),
+                color = NeonSky.copy(alpha = 0.75f),
                 radius = radius * 0.018f,
             )
 
